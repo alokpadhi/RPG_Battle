@@ -1,5 +1,5 @@
 import random
-
+from classes.magic import Spell
 
 class Bcolors:
     HEADER = "\033[95m"
@@ -49,6 +49,11 @@ class Person:
             self.hp = 0
         return self.hp
 
+    def heal(self, dmg):
+        self.hp += dmg
+        if self.hp > self.maxhp:
+            self.hp = self.maxhp
+
     def get_hp(self):
         return self.hp
 
@@ -63,12 +68,12 @@ class Person:
 
     def reduce_mp(self, cost):
         self.mp -= cost
-
-    def get_spell_name(self, i):
-        return self.magic[i]["name"]
-
-    def get_spell_mp_cost(self, i):
-        return self.magic[i]["cost"]
+    #
+    # def get_spell_name(self, i):
+    #     return self.magic[i]["name"]
+    #
+    # def get_spell_mp_cost(self, i):
+    #     return self.magic[i]["cost"]
 
     def choose_action(self):
         i = 1
@@ -79,8 +84,11 @@ class Person:
 
     def choose_magic(self):
         i = 1
+        # for i in self.magic:
+        #     print(i.name)
+        # return False
         print(Bcolors.OKBLUE + Bcolors.BOLD + "Magic" + Bcolors.ENDC)
         for spell in self.magic:
-            print(str(i) + ":", spell["name"], "(cost:", str(spell["cost"]) + ")")
+            print(str(i) + ":", spell.name, "(cost:", str(spell.cost) + ")")
             i += 1
 
